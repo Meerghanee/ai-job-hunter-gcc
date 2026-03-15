@@ -8,7 +8,9 @@ def is_relevant(title):
         "fm"
     ]
 
-    if any(k in title for k in keywords):
-        return True
+    # if job title contains facilities-related word
+    for word in keywords:
+        if word in title:
+            return True
 
     return False
