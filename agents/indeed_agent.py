@@ -23,7 +23,7 @@ def search_indeed():
         for loc in locations:
 
             jobs = scrape_jobs(
-                site_name=["linkedin"],
+                site_name=["linkedin","indeed"],
                 search_term=role,
                 location=loc,
                 results_wanted=50,
