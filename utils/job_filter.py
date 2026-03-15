@@ -8,15 +8,7 @@ def is_relevant(title):
         "fm"
     ]
 
-    roles = [
-        "manager",
-        "engineer",
-        "head",
-        "director",
-        "chief"
-    ]
-
-    if any(k in title for k in keywords) and any(r in title for r in roles):
+    if any(k in title for k in keywords):
         return True
 
     return False
