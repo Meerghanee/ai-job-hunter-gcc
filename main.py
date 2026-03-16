@@ -1,5 +1,5 @@
 from agents.indeed_agent import search_indeed
-from agents.bayt_agent import search_bayt
+from agents.naukri_agent import search_naukri
 from utils.job_filter import is_relevant
 from utils.telegram_sender import send_job
 
@@ -8,12 +8,17 @@ def run():
 
     jobs = []
 
+    # LinkedIn + Indeed (via jobspy)
     jobs.extend(search_indeed())
-    jobs.extend(search_bayt())
+
+    # Naukri Gulf scraper
+    jobs.extend(search_naukri())
 
     print("Jobs Found:", len(jobs))
 
     for job in jobs:
+
+        print("Checking:", job["title"])
 
         if is_relevant(job["title"]):
 
