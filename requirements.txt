@@ -1,0 +1,6 @@
+requests
+beautifulsoup4
+pandas
+schedule
+python-telegram-bot
+python-jobspy

@@ -5,22 +5,26 @@ from bs4 import BeautifulSoup
 def search_bayt():
 
     roles = [
-        "facilities manager",
-        "facilities engineer",
-        "chief engineer"
+        "facilities-manager",
+        "facilities-engineer",
+        "chief-engineer"
     ]
 
     job_list = []
 
     for role in roles:
 
-        url = f"https://www.bayt.com/en/international/jobs/{role.replace(' ', '-')}-jobs/"
+        url = f"https://www.bayt.com/en/international/jobs/{role}-jobs/"
 
-        response = requests.get(url)
+        headers = {
+            "User-Agent": "Mozilla/5.0"
+        }
+
+        response = requests.get(url, headers=headers)
 
         soup = BeautifulSoup(response.text, "html.parser")
 
-        jobs = soup.select("h2 a")
+        jobs = soup.select("a[data-js='job-title']")
 
         for job in jobs[:20]:
 
