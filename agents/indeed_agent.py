@@ -11,10 +11,13 @@ def search_indeed():
         "Duty Manager"
     ]
 
+    # City-based search improves GCC job discovery
     locations = [
-        "United Arab Emirates",
-        "Qatar",
-        "Saudi Arabia"
+        "Dubai, UAE",
+        "Abu Dhabi, UAE",
+        "Doha, Qatar",
+        "Riyadh, Saudi Arabia",
+        "Jeddah, Saudi Arabia"
     ]
 
     job_list = []
@@ -23,7 +26,7 @@ def search_indeed():
         for loc in locations:
 
             jobs = scrape_jobs(
-                site_name=["linkedin","indeed"],
+                site_name=["linkedin", "indeed"],
                 search_term=role,
                 location=loc,
                 results_wanted=50,
