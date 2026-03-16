@@ -20,21 +20,29 @@ def search_naukri():
 
         url = f"https://www.naukrigulf.com/{role}-jobs"
 
-        response = requests.get(url, headers=headers)
+        try:
 
-        soup = BeautifulSoup(response.text, "html.parser")
+            response = requests.get(url, headers=headers, timeout=10)
 
-        jobs = soup.select("a.info-position")
+            soup = BeautifulSoup(response.text, "html.parser")
 
-        for job in jobs[:20]:
+            jobs = soup.select("a.info-position")
 
-            title = job.text.strip()
-            link = job["href"]
+            for job in jobs[:20]:
 
-            job_list.append({
-                "title": title,
-                "link": link
-            })
+                title = job.text.strip()
+                link = job.get("href")
+
+                if title and link:
+
+                    job_list.append({
+                        "title": title,
+                        "link": link
+                    })
+
+        except Exception as e:
+
+            print("Naukri scraper error:", e)
 
     print("Naukri Jobs Found:", len(job_list))
 
