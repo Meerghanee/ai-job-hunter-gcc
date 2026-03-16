@@ -5,38 +5,43 @@ from bs4 import BeautifulSoup
 def search_bayt():
 
     roles = [
-        "facilities-manager",
-        "facilities-engineer",
-        "chief-engineer"
+        "facilities manager",
+        "facilities engineer",
+        "chief engineer"
     ]
 
     job_list = []
 
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
+
     for role in roles:
 
-        url = f"https://www.bayt.com/en/international/jobs/{role}-jobs/"
-
-        headers = {
-            "User-Agent": "Mozilla/5.0"
-        }
+        query = f"site:bayt.com {role}"
+        url = f"https://www.google.com/search?q={query.replace(' ', '+')}"
 
         response = requests.get(url, headers=headers)
 
         soup = BeautifulSoup(response.text, "html.parser")
 
-        jobs = soup.select("a[data-js='job-title']")
+        results = soup.select("a")
 
-        for job in jobs[:20]:
+        for r in results:
 
-            title = job.text.strip()
-            link = "https://www.bayt.com" + job["href"]
+            link = r.get("href", "")
 
-            job_list.append({
-                "title": title,
-                "link": link
-            })
+            if "bayt.com" in link and "/jobs/" in link:
 
-    # DEBUG LINE (to verify scraper results)
+                title = r.text.strip()
+
+                if title:
+
+                    job_list.append({
+                        "title": title,
+                        "link": link
+                    })
+
     print("Bayt Jobs Found:", len(job_list))
 
     return job_list
