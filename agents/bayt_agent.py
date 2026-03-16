@@ -36,4 +36,7 @@ def search_bayt():
                 "link": link
             })
 
+    # DEBUG LINE (to verify scraper results)
+    print("Bayt Jobs Found:", len(job_list))
+
     return job_list
