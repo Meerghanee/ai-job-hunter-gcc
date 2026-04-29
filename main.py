@@ -3,6 +3,9 @@ from agents.naukri_agent import search_naukri
 from utils.job_filter import is_relevant
 from utils.telegram_sender import send_job
 
+# 🔴 CONTROL SWITCH
+SEND_ALERTS = False   # False = STOP | True = START
+
 
 def run():
 
@@ -31,7 +34,9 @@ Title: {job['title']}
 Link: {job['link']}
 """
 
-            send_job(message)
+            # 🚫 STOP / START control
+            if SEND_ALERTS:
+                send_job(message)
 
 
 run()
